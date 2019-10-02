@@ -37,6 +37,11 @@ class HumanPlayer:
             return move
 
 def heuristic(board) -> int:
+    '''the heuristic that's used'''
+    return movesHeuristic(board)
+
+
+def basicHeuristic(board) -> int:
     '''This very silly heuristic just adds up all the 1s, -1s, and 0s
     stored on the othello board.'''
     sum = 0
@@ -45,7 +50,25 @@ def heuristic(board) -> int:
             sum += board.array[i][j]
     return sum
 
-    
+def edgeHeuristic(board) -> int:
+    '''values edges and corners more'''
+    total = 0
+    for i in range(1,othelloBoard.size-1):
+        for j in range(1,othelloBoard.size-1):
+            factor = 1
+            if i == 1 or i == 8:
+                factor += .3
+            if j==1 or j==8:
+                factor += .3
+            total += board.array[i][j] * factor
+    return total
+
+def movesHeuristic(board) -> int:
+    '''this just works?'''
+    return len(board._legalMoves(1))-len(board._legalMoves(-1))
+
+
+
 
 class ComputerPlayer:
     '''Computer player: chooseMove is where the action is.'''

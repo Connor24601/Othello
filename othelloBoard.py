@@ -158,14 +158,14 @@ class OthelloBoard:
         # instantiate accordingly
         for i in range(2):
             response = input('Should ' + colorNames[i] + \
-                             ' be (h)uman or (c)omputer or (p)runer? ')
+                             ' be (h)uman or (c)heuristic or (p)movesHeuristic? ')
             if response.lower() == 'h':
                 name = input("What is the player's name? ")
                 players[i] = othelloPlayers.HumanPlayer(name,colorValues[i])
             elif response.lower() == "c":
                 plies = int(input("How many plies ahead " + \
                                   "should the computer look? "))
-                players[i] = othelloPlayers.ComputerPlayer(
+                players[i] = othelloPlayers.ComputerPlayerPruning(
                                'compy' + colorNames[i],colorValues[i],
                                othelloPlayers.heuristic,plies)
             elif response.lower() == "p":
@@ -173,7 +173,7 @@ class OthelloBoard:
                                   "should the computer look? "))
                 players[i] = othelloPlayers.ComputerPlayerPruning(
                                'compy' + colorNames[i],colorValues[i],
-                               othelloPlayers.heuristic,plies)
+                               othelloPlayers.movesHeuristic,plies)
 
         # Number of times a "pass" move has been made, in a row
         passes = 0
